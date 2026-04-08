@@ -12,14 +12,6 @@ class GildedRose(object):
             # “Aged Brie” actually increases in Quality the older it gets
             item_update_quality = item_update_quality + 1 * base_quality_degradation_factor
         elif item.name == "Backstage passes to a TAFKAL80ETC concert":
-            # “Backstage passes”, like aged brie, increases in Quality as its SellIn value approaches;
-            # Quality increases by 2 when there are 10 days or less and by 3 when there are 5 days or less but Quality drops to 0 after the concert
-            # if item.sell_in <= 10 and item.sell_in > 5:
-            #     item_update_quality = item_update_quality + 2
-            # elif item.sell_in <= 5 and item.sell_in > 0:
-            #     item_update_quality = item_update_quality + 3
-            # elif item.sell_in <= 0:
-            #     item_update_quality = 0
             if item.sell_in <= 0:
                 item_update_quality = 0
             else:
