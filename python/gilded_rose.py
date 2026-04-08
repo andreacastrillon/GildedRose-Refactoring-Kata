@@ -11,17 +11,21 @@ class GildedRose(object):
         if item.name == "Aged Brie":
             # “Aged Brie” actually increases in Quality the older it gets
             item_update_quality = item_update_quality + 1 * base_quality_degradation_factor
+        
         elif item.name == "Backstage passes to a TAFKAL80ETC concert":
             if item.sell_in <= 0:
                 item_update_quality = 0
             else:
-                item_update_quality = item_update_quality + 1 * base_quality_degradation_factor
+                item_update_quality = item_update_quality + 1
 
                 if item.sell_in <= 10:
-                    item_update_quality = item_update_quality + 1 * base_quality_degradation_factor
+                    item_update_quality = item_update_quality + 1
 
                 if item.sell_in <= 5:
-                    item_update_quality = item_update_quality + 1 * base_quality_degradation_factor
+                    item_update_quality = item_update_quality + 1
+
+        elif item.name == "Conjured Mana Cake":
+            item_update_quality = item_update_quality - 2 * base_quality_degradation_factor
 
         elif item.name != "Sulfuras, Hand of Ragnaros":
             # “Sulfuras”, being a legendary item, never has to be sold or decreases in Quality
@@ -47,10 +51,6 @@ class GildedRose(object):
             if item.sell_in <= 0:
                 # # Once the sell by date has passed, Quality degrades twice as fast
                 base_quality_degradation_factor *= 2 
-
-            if item.name == "Conjured Mana Cake":
-                # "Conjured" items degrade in Quality twice as fast as normal items
-                base_quality_degradation_factor *= 2
 
             if item.name == "Sulfuras, Hand of Ragnaros":
                 continue # Sulfuras never decreases in quality and never has to be sold, so we skip the rest of the loop and move on to the next item   
