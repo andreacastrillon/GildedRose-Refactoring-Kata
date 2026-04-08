@@ -35,6 +35,7 @@ class GildedRose(object):
             # The Quality of an item is never negative
             item_update_quality = 0
         
+
         
         return item_update_quality
     
@@ -43,18 +44,19 @@ class GildedRose(object):
             
             base_quality_degradation_factor = 1 # 2 in case we are dealing with and item thats past its sell date
 
-            if item.name == "Conjured Mana Cake":
-                # "Conjured" items degrade in Quality twice as fast as normal items
-                base_quality_degradation_factor = base_quality_degradation_factor * 2
-
             if item.sell_in <= 0:
                 # # Once the sell by date has passed, Quality degrades twice as fast
-                base_quality_degradation_factor = base_quality_degradation_factor * 2                    
+                base_quality_degradation_factor *= 2 
+
+            if item.name == "Conjured Mana Cake":
+                # "Conjured" items degrade in Quality twice as fast as normal items
+                base_quality_degradation_factor *= 2
 
             if item.name == "Sulfuras, Hand of Ragnaros":
                 continue # Sulfuras never decreases in quality and never has to be sold, so we skip the rest of the loop and move on to the next item   
 
             item_update_quality = self.handle_item_quality_update(item, base_quality_degradation_factor)
+            
 
             # Finally, assign the potentially updated quality to the item
             item.quality = item_update_quality
